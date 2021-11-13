@@ -1,0 +1,5 @@
+# Ignorar codigo gerado automaticamente
+*_gen.m
+
+# Ignorar o autosave do Matlab
+*.asv
