@@ -59,11 +59,12 @@ $$
 
 where $<$ indicates the successor function that the actual function are dependent. Here the forward method have to be done one time to, after that, we can compute the value of all adjoints needed, dependent on what output and input we are interest. The index value and the value of each intermediate function itselfe have to be save so we can evaluate every adjoint needed, they can not be overwriting. This lead to a particular forward method plus a returning swep that despite having additional steps for the calculation of each derivative, it allows to evaluate only the inputs of interest (such as successor variables), making the calculation of each output restricted only as inputs on which it is dependent.  
 
+The computational cost can be calculated from any function that uses derivatives, for instance, the cost function of the output error method applied on aircraft system identification. 
 
-
-
-
-The computational cost can be calculated from any function that uses derivatives, so we can elaborate a table relative to a example function. 
+\begin{equation}
+    J(\theta) := \frac12 \sum_{k=1}^N 
+    [z(t_k) - y(t_k; \theta)]\trans R\inv [z(t_k) - y(t_k; \theta)],
+\end{equation}
 
 
 ---- The cost of the forward method scales linearly with the number of inputs, while the reverse method scales linearly with the number of outputs. 
