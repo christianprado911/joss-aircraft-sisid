@@ -50,7 +50,7 @@ The forward, central and complex step differentiantion are defined as:
     \frac{\operatorname{Im}[F(x+\imath h)]}{h};
 \end{align}
 
-where  $F: \mathbb{R}\to\mathbb{R} $ its any function. These are types of finite-difference methods that are computationally expensive and their accuracy are dependent of the size of de perturbation $h$ in forward and central step, or need to be work in a complex context in the last case. The forrward and central differences leads to truncation and round-off error due to machine  discretization on numbers, while the complex step does not suffer from such problems, but neither does it lead to an exact result. See pictures on \autoref{fig:finitediff}, where these values were calculated in relation to the exact (analytical) differentiation.
+where  $F: \reals\to\reals $ its any function. These are types of finite-difference methods that are computationally expensive and their accuracy are dependent of the size of de perturbation $h$ in forward and central step, or need to be work in a complex context in the last case. The forrward and central differences leads to truncation and round-off error due to machine  discretization on numbers, while the complex step does not suffer from such problems, but neither does it lead to an exact result. See pictures on \autoref{fig:finitediff}, where these values were calculated in relation to the exact (analytical) differentiation.
 
 ![Erro vs size of perturbation h.\label{fig:finite}]![finite](https://user-images.githubusercontent.com/52748683/142127193-3601f748-6a69-4780-8cff-e46eff70b1e2.png)
 
