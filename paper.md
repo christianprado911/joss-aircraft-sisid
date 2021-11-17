@@ -69,7 +69,7 @@ The computational cost can be calculated from any function that uses derivatives
     J(\theta) := \frac12 \sum_{k=1}^{N} [z(t_k) - y(t_k; \theta)]^T R^{-1} [z(t_k) - y(t_k; \theta)],
 \end{equation}
 
- where $x\in\reals^{n_x}$ are the states, $y\in\reals^{n_y}$ are the outputs, $\theta\in\reals^{n_\theta}$ are the unknown parameters, $R\in\reals^{n_y\times n_y}$ is the covariance matrix  and $z$ are the measured value from data. The forward (direct) method leads to 
+ where $x\in R^{n_x}$ are the states, $y\in R^{n_y}$ are the outputs, $\theta\in R^{n_\theta}$ are the unknown parameters, $R\in R^{n_y\times n_y}$ is the covariance matrix  and $z$ are the measured value from data. The forward (direct) method leads to 
  
  \begin{equation}
  \nabla J(\theta) = -\sum_{k=1}^N \frac{\dd y(t_k;\theta)}{\dd \theta}^T R^{-1} [z(t_k) - y(t_k; \theta)].
