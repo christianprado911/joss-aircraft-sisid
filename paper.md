@@ -51,7 +51,7 @@ The forward, central and complex step differentiantion are defined as:
     \frac{\operatorname{Im}[F(x+\imath h)]}{h};
 \end{align}
 
-where $F\colon\reals\to\reals$ its any function. These are types of finite-difference methods that are computationally expensive and their accuracy are dependent of the size of de perturbation $h$ in forward and central step, or need to be work in a complex context in the last case. In a different way, forward and reverse (also knows as adjoint method) method uses the chain rule to differentiate functions in any case and are analytically accurate. For numerical applications it is necessary to use symbolic functions to implement both types of differentials. The adjoint variable $\bar{v}_ i$ are introduced here to indicate the value of the sensitivity of that variable relative to all successors and it is multiplied by the adjoint of the successor.
+where $F\colon\reals\to\reals$ its any function. These are types of finite-difference methods that are computationally expensive and their accuracy are dependent of the size of de perturbation $h$ in forward and central step, or need to be work in a complex context in the last case. In a different way, forward (direct) and reverse (also knows as adjoint method) method uses the chain rule to differentiate functions in any case and are analytically accurate. For numerical applications it is necessary to use symbolic functions to implement both types of differentials. The adjoint variable $\bar{v}_ i$ are introduced here to indicate the value of the sensitivity of that variable relative to all successors and it is multiplied by the adjoint of the successor.
 
 $$
 \bar{v}_j = \sum_{i<j} \frac{\partial \phi_i(v_j)_{j<i}}{\partial v_j} \bar{v}_i
@@ -59,12 +59,32 @@ $$
 
 where $<$ indicates the successor function that the actual function are dependent. Here the forward method have to be done one time to, after that, we can compute the value of all adjoints needed, dependent on what output and input we are interest. The index value and the value of each intermediate function itselfe have to be save so we can evaluate every adjoint needed, they can not be overwriting. This lead to a particular forward method plus a returning swep that despite having additional steps for the calculation of each derivative, it allows to evaluate only the inputs of interest (such as successor variables), making the calculation of each output restricted only as inputs on which it is dependent.  
 
-The computational cost can be calculated from any function that uses derivatives, for instance, the cost function of the output error method applied on aircraft system identification. 
+The computational cost can be calculated from any function that uses derivatives, for instance, the cost function $J$  of the output error method applied on aircraft system identification (ref jategaonkar sec 4.3). 
 
 \begin{equation}
-    J(\theta) := \frac12 \sum_{k=1}^N 
-    [z(t_k) - y(t_k; \theta)]\trans R\inv [z(t_k) - y(t_k; \theta)],
+    J(\theta) := \frac12 \sum_{k=1}^N [z(t_k) - y(t_k; \theta)] \trans R\inv [z(t_k) - y(t_k; \theta)],
 \end{equation}
 
+ where $x\in\reals^{n_x}$ are the states, $y\in\reals^{n_y}$ are the outputs, $\theta\in\reals^{n_\theta}$ are the unknown parameters, $R\in\reals^{n_y\times n_y}$ is the covariance matrix  and $z$ are the measured value from data. The forward (direct) method leads to 
+ 
+ \begin{equation}
+ \nabla J(\theta) = -\sum_{k=1}^N \frac{\dd y(t_k;\theta)}{\dd \theta}\trans R\inv [z(t_k) - y(t_k; \theta)].
+ \end{equation}
+ 
+ and the adjoint method 
+ 
+\begin{equation}
+ \nabla J(\theta) = \sum_{k=1}^N [\nabla_\theta g(x(t_k;\theta), u(t_k), \theta) \trans \bar y(t_k;\theta) + T\nabla_\theta f(x(t_k;\theta), u(t_k), \theta) \trans \bar x(t_{k+1};\theta)].
+\end{equation}
 
----- The cost of the forward method scales linearly with the number of inputs, while the reverse method scales linearly with the number of outputs. 
+Evaluating the cost of each derivative we can build a table comparing the sum and multiplication processes
+
+\begin{table}[!htb]
+\begin{tabular}{c|l|l|}
+\cline{2-3}
+\multicolumn{1}{l|}{}                & \multicolumn{1}{c|}{\textbf{Forward}} & \multicolumn{1}{c|}{\textbf{Adjoint}} \\ \hline
+\multicolumn{1}{|c|}{\textbf{mult.}} & $n_{\theta} n_y (1 + n_y)$            & $n_{\theta}(1 + n_y + 2n_x)$          \\ \hline
+\multicolumn{1}{|c|}{\textbf{sum}}   & $n_y(1 + n_{\theta})$                 & $n_{\theta}(1 + n_x + n_y)$           \\ \hline
+\end{tabular}
+\end{table}
+
