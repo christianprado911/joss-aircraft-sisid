@@ -66,19 +66,19 @@ where $<$ indicates the successor function that the actual function are dependen
 The computational cost can be calculated from any function that uses derivatives, for instance, the cost function $J$  of the output error method applied on aircraft system identification `@ravindra:2015` (sec 4.3). 
 
 \begin{equation}
-    J(\theta) := \frac12 \sum_{k=1}^{N} [z(t_k) - y(t_k; \theta)] \trans R\inv [z(t_k) - y(t_k; \theta)],
+    J(\theta) := \frac12 \sum_{k=1}^{N} [z(t_k) - y(t_k; \theta)]^T R\inv [z(t_k) - y(t_k; \theta)],
 \end{equation}
 
  where $x\in\reals^{n_x}$ are the states, $y\in\reals^{n_y}$ are the outputs, $\theta\in\reals^{n_\theta}$ are the unknown parameters, $R\in\reals^{n_y\times n_y}$ is the covariance matrix  and $z$ are the measured value from data. The forward (direct) method leads to 
  
  \begin{equation}
- \nabla J(\theta) = -\sum_{k=1}^N \frac{\dd y(t_k;\theta)}{\dd \theta}\trans R\inv [z(t_k) - y(t_k; \theta)].
+ \nabla J(\theta) = -\sum_{k=1}^N \frac{\dd y(t_k;\theta)}{\dd \theta}^T R\inv [z(t_k) - y(t_k; \theta)].
  \end{equation}
  
  and the adjoint method 
  
 \begin{equation}
- \nabla J(\theta) = \sum_{k=1}^N [\nabla_\theta g(x(t_k;\theta), u(t_k), \theta) \trans \bar y(t_k;\theta) + T\nabla_\theta f(x(t_k;\theta), u(t_k), \theta) \trans \bar x(t_{k+1};\theta)].
+ \nabla J(\theta) = \sum_{k=1}^N [\nabla_\theta g(x(t_k;\theta), u(t_k), \theta)^T \bar y(t_k;\theta) + T\nabla_\theta f(x(t_k;\theta), u(t_k), \theta)^T \bar x(t_{k+1};\theta)].
 \end{equation}
 
 Evaluating the cost of each derivative we can build a table comparing the sum and multiplication processes
