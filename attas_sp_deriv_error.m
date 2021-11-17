@@ -54,8 +54,8 @@ thetaopt = fminunc(fun, theta0, optopt);
 oemopt.deriv = 'user-fcn';
 [~, grad] = oem_obj(thetaopt, z, mdlsim, oemopt);
 
-nsteps = 100;
-steps = logspace(-2, -16, nsteps);
+nsteps = 1000;
+steps = logspace(0, -300, nsteps);
 steps(end) = 1e-300;
 err_complex = zeros(nsteps, 1);
 err_fwd = zeros(nsteps, 1);
@@ -76,3 +76,48 @@ for i = 1:nsteps
     [~, grad_central] = oem_obj(thetaopt, z, mdlsim, oemopt);
     err_central(i) = mean(abs(grad - grad_central));
 end
+
+figure(1);
+tiled = tiledlayout(1,5,'TileSpacing','tight');
+ay1 = nexttile(1, [1 4]);
+loglog(ay1, steps, err_complex , '*', steps, err_fwd , 's', steps, ... 
+    err_central , '.')
+set(gca, 'xdir', 'rev')
+legend('Passo Complexo','Passo a frente', 'Passo central', 'location', ...
+    'best','FontSize', 12)
+xlim([1e-21 1e0 ])
+ylim([1e-15 1e6 ])
+ay2 = nexttile;
+loglog(ay2, steps, err_complex , '*', steps, err_fwd , 's', steps, ... 
+    err_central , '.')
+set(gca, 'xdir', 'rev')
+xlim([1e-300 1e-296])
+ylim([1e-15 1e6 ])
+xlabel(tiled, 'Passo de diferenciação h','FontSize', 12)
+yticklabels({})
+ylabel(tiled, 'Error médio absoluto \epsilon','FontSize', 12)
+
+%%
+y0 = mdlsim(p0);
+[~, ~, ~, yopt_rev] = obj(popt);
+
+oemopt.deriv = 'complex-step';
+yopt = mdlsim(thetaopt);
+
+figure(2)
+tiled = tiledlayout(2,1,'TileSpacing','tight');
+ax1 = nexttile;
+plot(ax1,t, rad2deg(z(:,1)), '.', t, rad2deg(yopt(:,1)), t, rad2deg(y0(:, 1)), '--')
+subtitle('Angle of attack','FontSize', 12)
+legend({'measurements ', 'estimated', 'starting'},'FontSize', 12)
+ylabel('\alpha (\circ)','FontSize', 12);
+
+ax2 = nexttile;
+plot(ax2,t, rad2deg(z(:,2)), '.', t, rad2deg(yopt(:,2)), t, rad2deg(y0(:, 2)), '--')
+subtitle('Yaw vel.','FontSize', 12)
+ylim([-9 9])
+legend({'measurements ', 'estimated', 'starting'},'FontSize', 12)
+ylabel(ax2, 'q (deg/s)','FontSize', 12);
+xlabel('time (s)', 'FontSize', 12);
+%linkaxes([ax1,ax2],'x');
+xticklabels(ax1,{})
