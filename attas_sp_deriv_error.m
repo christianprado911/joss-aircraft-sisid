@@ -95,7 +95,7 @@ xlim([1e-300 1e-296])
 ylim([1e-15 1e6 ])
 xlabel(tiled, 'h','FontSize', 12)
 yticklabels({})
-ylabel(tiled, 'Absolute mean error \epsilon','FontSize', 12)
+ylabel(tiled, 'Mean absolute error \epsilon','FontSize', 12)
 
 %%
 y0 = mdlsim(p0);
