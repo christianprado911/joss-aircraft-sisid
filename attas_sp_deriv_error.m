@@ -83,7 +83,7 @@ ay1 = nexttile(1, [1 4]);
 loglog(ay1, steps, err_complex , '*', steps, err_fwd , 's', steps, ... 
     err_central , '.')
 set(gca, 'xdir', 'rev')
-legend('Passo Complexo','Passo a frente', 'Passo central', 'location', ...
+legend('Complex Step','Forward Step', 'Central Step', 'location', ...
     'best','FontSize', 12)
 xlim([1e-21 1e0 ])
 ylim([1e-15 1e6 ])
@@ -93,9 +93,9 @@ loglog(ay2, steps, err_complex , '*', steps, err_fwd , 's', steps, ...
 set(gca, 'xdir', 'rev')
 xlim([1e-300 1e-296])
 ylim([1e-15 1e6 ])
-xlabel(tiled, 'Passo de diferenciação h','FontSize', 12)
+xlabel(tiled, 'h','FontSize', 12)
 yticklabels({})
-ylabel(tiled, 'Error médio absoluto \epsilon','FontSize', 12)
+ylabel(tiled, 'Absolute mean error \epsilon','FontSize', 12)
 
 %%
 y0 = mdlsim(p0);
@@ -114,7 +114,7 @@ ylabel('\alpha (\circ)','FontSize', 12);
 
 ax2 = nexttile;
 plot(ax2,t, rad2deg(z(:,2)), '.', t, rad2deg(yopt(:,2)), t, rad2deg(y0(:, 2)), '--')
-subtitle('Yaw vel.','FontSize', 12)
+subtitle('pitch vel.','FontSize', 12)
 ylim([-9 9])
 legend({'measurements ', 'estimated', 'starting'},'FontSize', 12)
 ylabel(ax2, 'q (deg/s)','FontSize', 12);
