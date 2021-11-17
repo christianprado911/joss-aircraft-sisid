@@ -33,7 +33,7 @@ During the system identification process, the use of derivatives is part of the 
 
 # Statemend of need
 
-At this work, we developed a program capable of receiving the input and output data of maneuvers of an aircraft, more especifically short period and roll provided by Ravindra at his book "Flight Vehicle System Identification - Second Edition" `@ravindra`, so the aerodynamic derivatives could be evaluated in a simplified aircraft model. The plataform used was chosen dua to the speed of execution in its processes and by its presence in the engineering market. 
+At this work, we developed a program capable of receiving the input and output data of maneuvers of an aircraft, more especifically short period and roll provided by Ravindra at his book "Flight Vehicle System Identification - Second Edition" `@ravindra:2015`, so the aerodynamic derivatives could be evaluated in a simplified aircraft model. The plataform used was chosen dua to the speed of execution in its processes and by its presence in the engineering market. 
 
 This software was developed in order to develop the student's knowledge about system identification at aircraft maneuvers and enable the assessment of the proposed problem. 
 
@@ -56,7 +56,7 @@ where $F\colon\reals\to\reals$ its any function. These are types of finite-diffe
 ![Erro vs size of perturbation h.\label{fig:finite}]![finite](https://user-images.githubusercontent.com/52748683/142127193-3601f748-6a69-4780-8cff-e46eff70b1e2.png)
 
 
-In a different way, forward (direct) and reverse (also knows as adjoint method) method uses the chain rule to differentiate functions in any case and are analytically accurate. For numerical applications it is necessary to use symbolic functions to implement both types of differentials. The adjoint variable `@adjoint` $\bar{v}_ i$ are introduced here to indicate the value of the sensitivity of that variable relative to all successors and it is multiplied by the adjoint of the successor.
+In a different way, forward (direct) and reverse (also knows as adjoint method) method uses the chain rule to differentiate functions in any case and are analytically accurate. For numerical applications it is necessary to use symbolic functions to implement both types of differentials. The adjoint variable `@adjoint:2008` $\bar{v}_ i$ are introduced here to indicate the value of the sensitivity of that variable relative to all successors and it is multiplied by the adjoint of the successor.
 
 $$
 \bar{v}_j = \sum_{i<j} \frac{\partial \phi_i(v_j)_{j<i}}{\partial v_j} \bar{v}_i
@@ -64,7 +64,7 @@ $$
 
 where $<$ indicates the successor function that the actual function are dependent. Here the forward method have to be done one time to, after that, we can compute the value of all adjoints needed, dependent on what output and input we are interest. The index value and the value of each intermediate function itselfe have to be save so we can evaluate every adjoint needed, they can not be overwriting. This lead to a particular forward method plus a returning swep that despite having additional steps for the calculation of each derivative, it allows to evaluate only the inputs of interest (such as successor variables), making the calculation of each output restricted only as inputs on which it is dependent.  
 
-The computational cost can be calculated from any function that uses derivatives, for instance, the cost function $J$  of the output error method applied on aircraft system identification `@ravindra` (sec 4.3). 
+The computational cost can be calculated from any function that uses derivatives, for instance, the cost function $J$  of the output error method applied on aircraft system identification `@ravindra:2015` (sec 4.3). 
 
 \begin{equation}
     J(\theta) := \frac12 \sum_{k=1}^N [z(t_k) - y(t_k; \theta)] \trans R\inv [z(t_k) - y(t_k; \theta)],
